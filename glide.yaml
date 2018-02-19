@@ -1,0 +1,13 @@
+package: github.com/appscode/grpc-go-addons
+import:
+- package: github.com/appscode/go
+  version: master
+- package: github.com/grpc-ecosystem/grpc-gateway
+  repo: https://github.com/appscode/grpc-gateway.git
+  vcs: git
+  version: v1.3.1-ac
+- package: github.com/pkg/errors
+  version: v0.8.0
+- package: golang.org/x/net
+- package: google.golang.org/grpc
+  version: v1.9.2
