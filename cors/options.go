@@ -23,7 +23,7 @@ func evaluateOptions(opts []Option) *options {
 
 type Option func(*options)
 
-func AllowHost(host string) Option {
+func OriginHost(host string) Option {
 	return func(o *options) {
 		o.allowHost = host
 	}

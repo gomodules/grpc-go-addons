@@ -1,9 +1,9 @@
 package server
 
 import (
+	"github.com/appscode/grpc-go-addons/cors"
 	"github.com/appscode/grpc-go-addons/endpoints"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/appscode/grpc-go-addons/cors"
 	"google.golang.org/grpc"
 )
 
@@ -18,9 +18,9 @@ type Config struct {
 	CORSOriginHost     string
 	CORSAllowSubdomain bool
 
-	grpcRegistry       endpoints.GRPCRegistry
-	proxyRegistry      endpoints.ProxyRegistry
-	corsRegistry       cors.Registry
+	grpcRegistry  endpoints.GRPCRegistry
+	proxyRegistry endpoints.ProxyRegistry
+	corsRegistry  cors.PatternRegistry
 
 	grpcOptions  []grpc.ServerOption
 	gwMuxOptions []gwrt.ServeMuxOption
@@ -42,7 +42,7 @@ func (s *Config) SetProxyRegistry(reg endpoints.ProxyRegistry) {
 	s.proxyRegistry = reg
 }
 
-func (s *Config) SetCORSRegistry(reg cors.Registry) {
+func (s *Config) SetCORSRegistry(reg cors.PatternRegistry) {
 	s.corsRegistry = reg
 }
 
@@ -52,4 +52,8 @@ func (s *Config) GRPCServerOption(opt ...grpc.ServerOption) {
 
 func (s *Config) GatewayMuxOption(opt ...gwrt.ServeMuxOption) {
 	s.gwMuxOptions = opt
+}
+
+func (c Config) New() (*Server, error) {
+	return &Server{Config: c}, nil
 }

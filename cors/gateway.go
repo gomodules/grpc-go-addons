@@ -13,30 +13,22 @@ import (
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
 // https://fetch.spec.whatwg.org/#cors-protocol-and-credentials
 // For requests without credentials, the server may specify "*" as a wildcard, thereby allowing any origin to access the resource.
-type Registry struct {
-	options  *options
-	patterns []runtime.Pattern
-	origin   string
+type Handler struct {
+	options *options
+	reg     PatternRegistry
 }
 
-func NewRegistry(opts ...Option) *Registry {
-	return &Registry{options: evaluateOptions(opts)}
+func NewHandler(r PatternRegistry, opts ...Option) *Handler {
+	return &Handler{options: evaluateOptions(opts)}
 }
 
-func (r *Registry) Register(f []runtime.Pattern) {
-	if r.patterns == nil {
-		r.patterns = make([]runtime.Pattern, 0)
-	}
-	r.patterns = append(r.patterns, f...)
-}
-
-func (r *Registry) RegisterHandler(mux *runtime.ServeMux) {
-	for _, p := range r.patterns {
+func (r *Handler) RegisterHandler(mux *runtime.ServeMux) {
+	for _, p := range r.reg {
 		mux.Handle("OPTIONS", p, r.ServeHTTP)
 	}
 }
 
-func (r Registry) ServeHTTP(w http.ResponseWriter, req *http.Request, _ map[string]string) {
+func (r Handler) ServeHTTP(w http.ResponseWriter, req *http.Request, _ map[string]string) {
 	headers := map[string]string{
 		"access-control-allow-methods": "POST,GET,OPTIONS,PUT,DELETE",
 		"access-control-allow-headers": req.Header.Get("access-control-request-headers"),
