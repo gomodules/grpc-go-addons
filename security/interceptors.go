@@ -1,4 +1,4 @@
-package endpoints
+package security
 
 import (
 	"golang.org/x/net/context"
