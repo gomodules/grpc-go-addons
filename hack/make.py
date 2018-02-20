@@ -61,20 +61,21 @@ def version():
 
 
 def fmt():
-    libbuild.ungroup_go_imports('cors', 'endpoints', 'security')
-    die(call('goimports -w cors endpoints security'))
-    call('gofmt -s -w cors endpoints security')
+    libbuild.ungroup_go_imports('cors', 'endpoints', 'notifier', 'security', 'server')
+    die(call('goimports -w cors endpoints notifier security server'))
+    call('gofmt -s -w cors endpoints notifier security server')
 
 
 def vet():
-    call('go vet ./cors/... ./endpoints/... ./security/...')
+    call('go vet ./cors/... ./endpoints/... ./notifier/... ./security/... ./server/...')
 
 
 def lint():
-    call('golint *.go')
     call('golint ./cors/...')
     call('golint ./endpoints/...')
+    call('golint ./notifier/...')
     call('golint ./security/...')
+    call('golint ./server/...')
 
 
 def gen():

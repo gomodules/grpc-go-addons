@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/appscode/go/log"
+	"github.com/appscode/grpc-go-addons/cors"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/soheilhy/cmux"
 	"google.golang.org/grpc"
@@ -17,15 +18,15 @@ import (
 )
 
 type Server struct {
-	cfg Config
+	Config
 }
 
 func (s *Server) Run(stopCh <-chan struct{}) error {
-	if s.cfg.UseTLS() {
+	if s.UseTLS() {
 		go s.ServeHTTPS()
 	}
 
-	listener, err := net.Listen("tcp", s.cfg.PlaintextAddr)
+	listener, err := net.Listen("tcp", s.PlaintextAddr)
 	if err != nil {
 		return err
 	}
@@ -65,45 +66,46 @@ func (s *Server) Run(stopCh <-chan struct{}) error {
 func (s *Server) newGRPCServer(useTLS bool) *grpc.Server {
 	var gRPCServer *grpc.Server
 	if useTLS {
-		creds, err := credentials.NewServerTLSFromFile(s.cfg.CertFile, s.cfg.KeyFile)
+		creds, err := credentials.NewServerTLSFromFile(s.CertFile, s.KeyFile)
 		if err != nil {
 			log.Fatalln(err)
 		}
-		s.cfg.grpcOptions = append(s.cfg.grpcOptions, grpc.Creds(creds))
+		s.grpcOptions = append(s.grpcOptions, grpc.Creds(creds))
 	}
-	gRPCServer = grpc.NewServer(s.cfg.grpcOptions...)
-	s.cfg.grpcRegistry.ApplyTo(gRPCServer)
+	gRPCServer = grpc.NewServer(s.grpcOptions...)
+	s.grpcRegistry.ApplyTo(gRPCServer)
 	return gRPCServer
 }
 
 func (s *Server) NewGatewayMux(l net.Listener, useTLS bool) *gwrt.ServeMux {
-	gwMux := gwrt.NewServeMux(s.cfg.gwMuxOptions...)
+	gwMux := gwrt.NewServeMux(s.gwMuxOptions...)
 	var grpcDialOptions []grpc.DialOption
 	if useTLS {
 		grpcDialOptions = []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, s.cfg.APIDomain)),
+			grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, s.APIDomain)),
 		}
 	} else {
 		grpcDialOptions = []grpc.DialOption{grpc.WithInsecure()}
 	}
-	if s.cfg.EnableCORS {
-		s.cfg.corsRegistry.RegisterHandler(gwMux)
+	if s.EnableCORS {
+		h := cors.NewHandler(s.corsRegistry, cors.OriginHost(s.CORSOriginHost), cors.AllowSubdomain(s.CORSAllowSubdomain))
+		h.RegisterHandler(gwMux)
 	}
 
 	addr := l.Addr().String()
 	addr = "127.0.0.1" + addr[strings.LastIndex(addr, ":"):]
-	s.cfg.proxyRegistry.ApplyTo(gwMux, addr, grpcDialOptions)
+	s.proxyRegistry.ApplyTo(gwMux, addr, grpcDialOptions)
 	return gwMux
 }
 
 func (s *Server) ServeHTTPS() {
-	l, err := net.Listen("tcp", s.cfg.SecureAddr)
+	l, err := net.Listen("tcp", s.SecureAddr)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Load certificates.
-	certificate, err := tls.LoadX509KeyPair(s.cfg.CertFile, s.cfg.KeyFile)
+	certificate, err := tls.LoadX509KeyPair(s.CertFile, s.KeyFile)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -129,8 +131,8 @@ func (s *Server) ServeHTTPS() {
 		ClientAuth: tls.VerifyClientCertIfGiven,
 		NextProtos: []string{"h2", "http/1.1"},
 	}
-	if s.cfg.CACertFile != "" {
-		caCert, err := ioutil.ReadFile(s.cfg.CACertFile)
+	if s.CACertFile != "" {
+		caCert, err := ioutil.ReadFile(s.CACertFile)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -143,7 +145,7 @@ func (s *Server) ServeHTTPS() {
 	gwMux := s.NewGatewayMux(l, true)
 
 	srv := &http.Server{
-		Addr:         s.cfg.SecureAddr,
+		Addr:         s.SecureAddr,
 		ReadTimeout:  30 * time.Second,
 		WriteTimeout: 30 * time.Second,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
