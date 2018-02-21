@@ -1,16 +1,20 @@
 // Copyright 2016 Michal Witkowski. All Rights Reserved.
 // See LICENSE for licensing terms.
 
-package grpc_validator
+package grpc_schema_validator
 
 import (
+	"bytes"
+
+	"github.com/xeipuuv/gojsonschema"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type validator interface {
-	Validate() error
+	Validate() (*gojsonschema.Result, error)
 }
 
 // UnaryServerInterceptor returns a new unary server interceptors that validates incoming messages.
@@ -19,8 +23,12 @@ type validator interface {
 func UnaryServerInterceptor() grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		if v, ok := req.(validator); ok {
-			if err := v.Validate(); err != nil {
-				return nil, grpc.Errorf(codes.InvalidArgument, err.Error())
+			result, err := v.Validate()
+			if err != nil {
+				return nil, status.Error(codes.InvalidArgument, err.Error())
+			}
+			if !result.Valid() {
+				return nil, status.Error(codes.InvalidArgument, flatten(result))
 			}
 		}
 		return handler(ctx, req)
@@ -49,9 +57,21 @@ func (s *recvWrapper) RecvMsg(m interface{}) error {
 		return err
 	}
 	if v, ok := m.(validator); ok {
-		if err := v.Validate(); err != nil {
-			return grpc.Errorf(codes.InvalidArgument, err.Error())
+		result, err := v.Validate()
+		if err != nil {
+			return status.Error(codes.InvalidArgument, err.Error())
+		}
+		if !result.Valid() {
+			return status.Error(codes.InvalidArgument, flatten(result))
 		}
 	}
 	return nil
+}
+
+func flatten(result *gojsonschema.Result) string {
+	var buf bytes.Buffer
+	for _, r := range result.Errors() {
+		buf.WriteString(r.Field() + ": " + r.Description() + "\n")
+	}
+	return buf.String()
 }

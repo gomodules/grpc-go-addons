@@ -1,27 +1,24 @@
 // Copyright 2016 Michal Witkowski. All Rights Reserved.
 // See LICENSE for licensing terms.
 
-package grpc_validator_test
+package grpc_schema_validator_test
 
 import (
+	"io"
 	"testing"
 
-	"github.com/stretchr/testify/suite"
-	"google.golang.org/grpc"
-
-	"io"
-
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-	"google.golang.org/grpc/codes"
-
+	"github.com/appscode/grpc-go-addons/schema_validator"
 	"github.com/grpc-ecosystem/go-grpc-middleware/testing"
 	pb_testproto "github.com/grpc-ecosystem/go-grpc-middleware/testing/testproto"
-	"github.com/grpc-ecosystem/go-grpc-middleware/validator"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 )
 
 var (
-	// See test.manual_validator.pb.go for the validator check of SleepTimeMs.
+	// See test.manual_validator.pb.go for the schema_validator check of SleepTimeMs.
 	goodPing = &pb_testproto.PingRequest{Value: "something", SleepTimeMs: 9999}
 	badPing  = &pb_testproto.PingRequest{Value: "something", SleepTimeMs: 10001}
 )
@@ -30,8 +27,8 @@ func TestValidatorTestSuite(t *testing.T) {
 	s := &ValidatorTestSuite{
 		InterceptorTestSuite: &grpc_testing.InterceptorTestSuite{
 			ServerOpts: []grpc.ServerOption{
-				grpc.StreamInterceptor(grpc_validator.StreamServerInterceptor()),
-				grpc.UnaryInterceptor(grpc_validator.UnaryServerInterceptor()),
+				grpc.StreamInterceptor(grpc_schema_validator.StreamServerInterceptor()),
+				grpc.UnaryInterceptor(grpc_schema_validator.UnaryServerInterceptor()),
 			},
 		},
 	}
