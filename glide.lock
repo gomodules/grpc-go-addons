@@ -1,17 +1,17 @@
 hash: a93af1bf54c6111c08c70d82ce0838d3b12bb0bcda9709f5f4efaefe4b60683c
-updated: 2018-02-20T22:27:27.917899058-08:00
+updated: 2018-03-15T18:34:07.978133904Z
 imports:
 - name: github.com/appscode/go
-  version: 83e7fc1967ed737eedfc87da60c42e9fc4dc684c
+  version: f8f2e1c7d2d10789cdd0540468b487d14421dbf9
   subpackages:
   - context
   - env
   - log
   - util/errors
 - name: github.com/golang/glog
-  version: 44145f04b68cf362d9c4df2182967c2275eaefed
+  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
 - name: github.com/golang/protobuf
-  version: 6e4cc92cc905d5f4a73041c1b8228ea08f4c6147
+  version: 925541529c1fa6821df4e44ce2723319eb2be768
   subpackages:
   - jsonpb
   - proto
@@ -37,13 +37,13 @@ imports:
 - name: github.com/spf13/pflag
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/xeipuuv/gojsonpointer
-  version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
+  version: 4e3ac2762d5f479393488629ee9370b50873b3a6
 - name: github.com/xeipuuv/gojsonreference
-  version: e02fc20de94c78484cd5ffb007f8af96be030a45
+  version: bd5ef7bd5415a7ac448318e64f11a24cd21e594b
 - name: github.com/xeipuuv/gojsonschema
-  version: 93e72a773fade158921402d6a24c819b48aba29d
+  version: 8bcffc811467a5f691810420385be6e66b35a317
 - name: golang.org/x/net
-  version: da118f7b8e5954f39d0d2130ab35d4bf0e3cb344
+  version: 1c05540f6879653db88113bc4a2b70aec4bd491f
   subpackages:
   - context
   - http2
@@ -53,7 +53,7 @@ imports:
   - lex/httplex
   - trace
 - name: golang.org/x/text
-  version: 470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4
+  version: b19bf474d317b857955b12035d2c5acb57ce8b01
   subpackages:
   - secure/bidirule
   - transform
@@ -93,7 +93,7 @@ testImports:
   subpackages:
   - spew
 - name: github.com/grpc-ecosystem/go-grpc-middleware
-  version: d0c54e68681ec7999ac17864470f3bee6521ba2b
+  version: eb23b08d08bbe930113a6512a7a829050341448c
   subpackages:
   - testing
   - testing/testproto
@@ -102,7 +102,7 @@ testImports:
   subpackages:
   - difflib
 - name: github.com/stretchr/testify
-  version: 12b6f73e6084dad08a7c6e575284b177ecafbc71
+  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
   subpackages:
   - assert
   - require
