@@ -1,5 +1,5 @@
 hash: a93af1bf54c6111c08c70d82ce0838d3b12bb0bcda9709f5f4efaefe4b60683c
-updated: 2018-03-15T18:34:07.978133904Z
+updated: 2018-03-16T05:53:24.240771267-07:00
 imports:
 - name: github.com/appscode/go
   version: f8f2e1c7d2d10789cdd0540468b487d14421dbf9
@@ -9,9 +9,9 @@ imports:
   - log
   - util/errors
 - name: github.com/golang/glog
-  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
+  version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/protobuf
-  version: 925541529c1fa6821df4e44ce2723319eb2be768
+  version: 1643683e1b54a9e88ad26d98f81400c8c9d9f4f9
   subpackages:
   - jsonpb
   - proto
@@ -37,11 +37,11 @@ imports:
 - name: github.com/spf13/pflag
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/xeipuuv/gojsonpointer
-  version: 4e3ac2762d5f479393488629ee9370b50873b3a6
+  version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
 - name: github.com/xeipuuv/gojsonreference
-  version: bd5ef7bd5415a7ac448318e64f11a24cd21e594b
+  version: e02fc20de94c78484cd5ffb007f8af96be030a45
 - name: github.com/xeipuuv/gojsonschema
-  version: 8bcffc811467a5f691810420385be6e66b35a317
+  version: 93e72a773fade158921402d6a24c819b48aba29d
 - name: golang.org/x/net
   version: 1c05540f6879653db88113bc4a2b70aec4bd491f
   subpackages:
@@ -89,7 +89,7 @@ imports:
   - transport
 testImports:
 - name: github.com/davecgh/go-spew
-  version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
+  version: 782f4967f2dc4564575ca782fe2d04090b5faca8
   subpackages:
   - spew
 - name: github.com/grpc-ecosystem/go-grpc-middleware
@@ -102,7 +102,7 @@ testImports:
   subpackages:
   - difflib
 - name: github.com/stretchr/testify
-  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
+  version: 12b6f73e6084dad08a7c6e575284b177ecafbc71
   subpackages:
   - assert
   - require
