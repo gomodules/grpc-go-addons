@@ -27,7 +27,7 @@ func UnaryServerInterceptor() grpc.UnaryServerInterceptor {
 			if err != nil {
 				return nil, status.Error(codes.InvalidArgument, err.Error())
 			}
-			if !result.Valid() {
+			if result != nil && !result.Valid() {
 				return nil, status.Error(codes.InvalidArgument, flatten(result))
 			}
 		}
@@ -61,7 +61,7 @@ func (s *recvWrapper) RecvMsg(m interface{}) error {
 		if err != nil {
 			return status.Error(codes.InvalidArgument, err.Error())
 		}
-		if !result.Valid() {
+		if result != nil && !result.Valid() {
 			return status.Error(codes.InvalidArgument, flatten(result))
 		}
 	}
