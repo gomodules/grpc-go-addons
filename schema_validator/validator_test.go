@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/appscode/grpc-go-addons/schema_validator"
-	"github.com/grpc-ecosystem/go-grpc-middleware/testing"
-	pb_testproto "github.com/grpc-ecosystem/go-grpc-middleware/testing/testproto"
+	"github.com/appscode/grpc-go-addons/testing"
+	pb_testproto "github.com/appscode/grpc-go-addons/testing/testproto"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
