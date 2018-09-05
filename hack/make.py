@@ -83,7 +83,7 @@ def gen():
 
 
 def install():
-    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install ./...'))
+    die(call('GO111MODULE=on ' + libbuild.GOC + ' install ./...'))
 
 
 def default():
