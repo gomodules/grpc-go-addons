@@ -3,6 +3,9 @@ go:
  - 1.x
  - tip
 
+env:
+  - GO111MODULE=on
+
 install: true
 
 script:
