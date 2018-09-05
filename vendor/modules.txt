@@ -1,0 +1,79 @@
+# github.com/appscode/go v0.0.0-20180312044318-f8f2e1c7d2d1
+github.com/appscode/go/env
+github.com/appscode/go/log
+github.com/appscode/go/util/errors
+github.com/appscode/go/context
+# github.com/davecgh/go-spew v0.0.0-20170626231645-782f4967f2dc
+github.com/davecgh/go-spew/spew
+# github.com/golang/glog v0.0.0-20141105023935-44145f04b68c
+github.com/golang/glog
+# github.com/golang/protobuf v0.0.0-20171021043952-1643683e1b54
+github.com/golang/protobuf/proto
+github.com/golang/protobuf/jsonpb
+github.com/golang/protobuf/ptypes/duration
+github.com/golang/protobuf/ptypes/timestamp
+github.com/golang/protobuf/ptypes
+github.com/golang/protobuf/ptypes/struct
+github.com/golang/protobuf/ptypes/any
+# github.com/google/uuid v0.0.0-20171129191014-dec09d789f3d
+github.com/google/uuid
+# github.com/grpc-ecosystem/grpc-gateway v1.3.1 => github.com/appscode/grpc-gateway v1.3.1-ac
+github.com/grpc-ecosystem/grpc-gateway/runtime
+github.com/grpc-ecosystem/grpc-gateway/runtime/internal
+github.com/grpc-ecosystem/grpc-gateway/utilities
+# github.com/pkg/errors v0.8.0
+github.com/pkg/errors
+# github.com/pmezard/go-difflib v0.0.0-20151028094244-d8ed2627bdf0
+github.com/pmezard/go-difflib/difflib
+# github.com/soheilhy/cmux v0.1.4
+github.com/soheilhy/cmux
+# github.com/spf13/pflag v1.0.0
+github.com/spf13/pflag
+# github.com/stretchr/testify v1.2.1
+github.com/stretchr/testify/require
+github.com/stretchr/testify/suite
+github.com/stretchr/testify/assert
+# github.com/xeipuuv/gojsonpointer v0.0.0-20151027082146-e0fe6f683076
+github.com/xeipuuv/gojsonpointer
+# github.com/xeipuuv/gojsonreference v0.0.0-20150808065054-e02fc20de94c
+github.com/xeipuuv/gojsonreference
+# github.com/xeipuuv/gojsonschema v0.0.0-20160323030313-93e72a773fad
+github.com/xeipuuv/gojsonschema
+# golang.org/x/net v0.0.0-20170809000501-1c05540f6879
+golang.org/x/net/context
+golang.org/x/net/http2
+golang.org/x/net/trace
+golang.org/x/net/http2/hpack
+golang.org/x/net/idna
+golang.org/x/net/lex/httplex
+golang.org/x/net/internal/timeseries
+# golang.org/x/text v0.0.0-20170810154203-b19bf474d317
+golang.org/x/text/secure/bidirule
+golang.org/x/text/unicode/norm
+golang.org/x/text/transform
+golang.org/x/text/unicode/bidi
+# google.golang.org/genproto v0.0.0-20170731182057-09f6ed296fc6
+google.golang.org/genproto/googleapis/rpc/status
+# google.golang.org/grpc v1.9.2
+google.golang.org/grpc
+google.golang.org/grpc/codes
+google.golang.org/grpc/metadata
+google.golang.org/grpc/status
+google.golang.org/grpc/credentials
+google.golang.org/grpc/grpclog
+google.golang.org/grpc/balancer
+google.golang.org/grpc/balancer/roundrobin
+google.golang.org/grpc/connectivity
+google.golang.org/grpc/encoding
+google.golang.org/grpc/grpclb/grpc_lb_v1/messages
+google.golang.org/grpc/internal
+google.golang.org/grpc/keepalive
+google.golang.org/grpc/naming
+google.golang.org/grpc/peer
+google.golang.org/grpc/resolver
+google.golang.org/grpc/resolver/dns
+google.golang.org/grpc/resolver/passthrough
+google.golang.org/grpc/stats
+google.golang.org/grpc/tap
+google.golang.org/grpc/transport
+google.golang.org/grpc/balancer/base
