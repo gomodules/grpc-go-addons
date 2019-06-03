@@ -10,19 +10,15 @@ import (
 // and should be modified only through the flag.Value interface.
 // These constants identify the log levels in order.
 const (
-	logLevelFatal   glog.Level = 0
-	logLevelError   glog.Level = 1
-	logLevelWarning glog.Level = 2
-	logLevelInfo    glog.Level = 3
-	logLevelDebug   glog.Level = 4
+	LevelDebug glog.Level = 4
 )
 
 func Fatal(args ...interface{}) {
-	glog.FatalDepth(1, args)
+	glog.FatalDepth(1, args...)
 }
 
 func Fatalln(args ...interface{}) {
-	glog.FatalDepth(1, args)
+	glog.FatalDepth(1, fmt.Sprintln(args...))
 }
 
 func Fatalf(format string, args ...interface{}) {
@@ -30,11 +26,11 @@ func Fatalf(format string, args ...interface{}) {
 }
 
 func Error(args ...interface{}) {
-	glog.ErrorDepth(1, args)
+	glog.ErrorDepth(1, args...)
 }
 
 func Errorln(args ...interface{}) {
-	glog.ErrorDepth(1, args)
+	glog.ErrorDepth(1, fmt.Sprintln(args...))
 }
 
 func Errorf(format string, args ...interface{}) {
@@ -42,11 +38,11 @@ func Errorf(format string, args ...interface{}) {
 }
 
 func Warning(args ...interface{}) {
-	glog.WarningDepth(1, args)
+	glog.WarningDepth(1, args...)
 }
 
 func Warningln(args ...interface{}) {
-	glog.WarningDepth(1, args)
+	glog.WarningDepth(1, fmt.Sprintln(args...))
 }
 
 func Warningf(format string, args ...interface{}) {
@@ -54,11 +50,11 @@ func Warningf(format string, args ...interface{}) {
 }
 
 func Info(args ...interface{}) {
-	glog.InfoDepth(1, args)
+	glog.InfoDepth(1, args...)
 }
 
 func Infoln(args ...interface{}) {
-	glog.InfoDepth(1, args)
+	glog.InfoDepth(1, fmt.Sprintln(args...))
 }
 
 func Infof(format string, args ...interface{}) {
@@ -66,19 +62,19 @@ func Infof(format string, args ...interface{}) {
 }
 
 func Debug(args ...interface{}) {
-	if glog.V(logLevelDebug) {
-		glog.InfoDepth(1, args)
+	if glog.V(LevelDebug) {
+		glog.InfoDepth(1, args...)
 	}
 }
 
 func Debugln(args ...interface{}) {
-	if glog.V(logLevelDebug) {
-		glog.InfoDepth(1, args)
+	if glog.V(LevelDebug) {
+		glog.InfoDepth(1, fmt.Sprintln(args...))
 	}
 }
 
 func Debugf(format string, args ...interface{}) {
-	if glog.V(logLevelDebug) {
+	if glog.V(LevelDebug) {
 		glog.InfoDepth(1, fmt.Sprintf(format, args...))
 	}
 }

@@ -11,7 +11,7 @@ import (
 	"io"
 	"testing"
 
-	pb_testproto "github.com/appscode/grpc-go-addons/testing/testproto"
+	pb_testproto "gomodules.xyz/grpc-go-addons/testing/testproto"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

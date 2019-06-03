@@ -7,12 +7,12 @@ import (
 	"io"
 	"testing"
 
-	"github.com/appscode/grpc-go-addons/schema_validator"
-	"github.com/appscode/grpc-go-addons/testing"
-	pb_testproto "github.com/appscode/grpc-go-addons/testing/testproto"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
+	"gomodules.xyz/grpc-go-addons/schema_validator"
+	"gomodules.xyz/grpc-go-addons/testing"
+	pb_testproto "gomodules.xyz/grpc-go-addons/testing/testproto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 )

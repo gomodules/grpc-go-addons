@@ -2,7 +2,7 @@
 set -eou pipefail
 
 GOPATH=$(go env GOPATH)
-REPO_ROOT="$GOPATH/src/github.com/appscode/grpc-go-addons"
+REPO_ROOT="$GOPATH/src/gomodules.xyz/grpc-go-addons"
 
 pushd $REPO_ROOT
 

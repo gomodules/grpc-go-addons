@@ -1,8 +1,8 @@
 package notifier
 
 import (
-	utilerrors "github.com/appscode/go/util/errors"
 	"golang.org/x/net/context"
+	utilerrors "gomodules.xyz/notify/errors"
 	"google.golang.org/grpc"
 )
 
