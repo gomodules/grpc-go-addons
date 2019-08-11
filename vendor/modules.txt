@@ -1,4 +1,4 @@
-# github.com/appscode/go v0.0.0-20190523031839-1468ee3a76e8
+# github.com/appscode/go v0.0.0-20190808133642-1d4ef1f1c1e0
 github.com/appscode/go/env
 github.com/appscode/go/log
 github.com/appscode/go/context
@@ -6,7 +6,7 @@ github.com/appscode/go/context
 github.com/davecgh/go-spew/spew
 # github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 github.com/golang/glog
-# github.com/golang/protobuf v1.3.1
+# github.com/golang/protobuf v1.2.0
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/jsonpb
 github.com/golang/protobuf/protoc-gen-go/generator
@@ -21,7 +21,7 @@ github.com/golang/protobuf/protoc-gen-go/generator/internal/remap
 github.com/golang/protobuf/protoc-gen-go/plugin
 # github.com/google/uuid v1.1.1
 github.com/google/uuid
-# github.com/grpc-ecosystem/grpc-gateway v1.9.0
+# github.com/grpc-ecosystem/grpc-gateway v1.9.5
 github.com/grpc-ecosystem/grpc-gateway/runtime
 github.com/grpc-ecosystem/grpc-gateway/internal
 github.com/grpc-ecosystem/grpc-gateway/utilities
@@ -37,13 +37,13 @@ github.com/spf13/pflag
 github.com/stretchr/testify/require
 github.com/stretchr/testify/suite
 github.com/stretchr/testify/assert
-# github.com/xeipuuv/gojsonpointer v0.0.0-20180127040702-4e3ac2762d5f
+# github.com/xeipuuv/gojsonpointer v0.0.0-20190809123943-df4f5c81cb3b
 github.com/xeipuuv/gojsonpointer
 # github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415
 github.com/xeipuuv/gojsonreference
 # github.com/xeipuuv/gojsonschema v1.1.0
 github.com/xeipuuv/gojsonschema
-# golang.org/x/net v0.0.0-20190603091049-60506f45cf65
+# golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3
 golang.org/x/net/context
 golang.org/x/net/trace
 golang.org/x/net/http2
@@ -51,14 +51,14 @@ golang.org/x/net/http2/hpack
 golang.org/x/net/internal/timeseries
 golang.org/x/net/http/httpguts
 golang.org/x/net/idna
-# golang.org/x/sys v0.0.0-20190424175732-18eb32c0e2f0
+# golang.org/x/sys v0.0.0-20190412213103-97732733099d
 golang.org/x/sys/unix
-# golang.org/x/text v0.3.1
+# golang.org/x/text v0.3.0
 golang.org/x/text/secure/bidirule
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/transform
-# gomodules.xyz/notify v0.0.0-20190424183923-af47cb5a07a4
+# gomodules.xyz/notify v0.1.0
 gomodules.xyz/notify/errors
 # google.golang.org/genproto v0.0.0-20180817151627-c66870c02cf8
 google.golang.org/genproto/googleapis/api/httpbody
