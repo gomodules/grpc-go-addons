@@ -6,7 +6,6 @@ import (
 	"io"
 	"net/http"
 	"net/textproto"
-	"strings"
 
 	"google.golang.org/genproto/googleapis/api/httpbody"
 	"google.golang.org/grpc/codes"
@@ -138,19 +137,6 @@ func ForwardResponseMessage(ctx context.Context, mux *ServeMux, marshaler Marsha
 	}
 
 	handleForwardResponseServerMetadata(w, mux, md)
-
-	// RFC 7230 https://tools.ietf.org/html/rfc7230#section-4.1.2
-	// Unless the request includes a TE header field indicating "trailers"
-	// is acceptable, as described in Section 4.3, a server SHOULD NOT
-	// generate trailer fields that it believes are necessary for the user
-	// agent to receive.
-	doForwardTrailers := requestAcceptsTrailers(req)
-
-	if doForwardTrailers {
-		handleForwardResponseTrailerHeader(w, md)
-		w.Header().Set("Transfer-Encoding", "chunked")
-	}
-
 	handleForwardResponseTrailerHeader(w, md)
 
 	contentType := marshaler.ContentType(resp)
@@ -177,14 +163,7 @@ func ForwardResponseMessage(ctx context.Context, mux *ServeMux, marshaler Marsha
 		grpclog.Infof("Failed to write response: %v", err)
 	}
 
-	if doForwardTrailers {
-		handleForwardResponseTrailer(w, md)
-	}
-}
-
-func requestAcceptsTrailers(req *http.Request) bool {
-	te := req.Header.Get("TE")
-	return strings.Contains(strings.ToLower(te), "trailers")
+	handleForwardResponseTrailer(w, md)
 }
 
 func handleForwardResponseOptions(ctx context.Context, w http.ResponseWriter, resp proto.Message, opts []func(context.Context, http.ResponseWriter, proto.Message) error) error {

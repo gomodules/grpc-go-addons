@@ -237,10 +237,6 @@ func decodeNonProtoField(d *json.Decoder, unmarshaler protojson.UnmarshalOptions
 			}
 			bk := result[0]
 			bv := reflect.New(rv.Type().Elem())
-			if v == nil {
-				null := json.RawMessage("null")
-				v = &null
-			}
 			if err := unmarshalJSONPb([]byte(*v), unmarshaler, bv.Interface()); err != nil {
 				return err
 			}

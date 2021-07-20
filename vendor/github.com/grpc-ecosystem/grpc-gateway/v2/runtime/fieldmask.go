@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"sort"
 
 	"google.golang.org/genproto/protobuf/field_mask"
 	"google.golang.org/protobuf/proto"
@@ -33,6 +32,7 @@ func FieldMaskFromRequestBody(r io.Reader, msg proto.Message) (*field_mask.Field
 	}
 
 	queue := []fieldMaskPathItem{{node: root, msg: msg.ProtoReflect()}}
+	var repeatedChild *fieldMaskPathItem
 	for len(queue) > 0 {
 		// dequeue an item
 		item := queue[0]
@@ -63,17 +63,6 @@ func FieldMaskFromRequestBody(r io.Reader, msg proto.Message) (*field_mask.Field
 					continue
 				}
 
-				if isProtobufAnyMessage(fd.Message()) {
-					_, hasTypeField := v.(map[string]interface{})["@type"]
-					if hasTypeField {
-						queue = append(queue, fieldMaskPathItem{path: k})
-						continue
-					} else {
-						return nil, fmt.Errorf("could not find field @type in %q in message %q", k, item.msg.Descriptor().FullName())
-					}
-
-				}
-
 				child := fieldMaskPathItem{
 					node: v,
 				}
@@ -85,9 +74,14 @@ func FieldMaskFromRequestBody(r io.Reader, msg proto.Message) (*field_mask.Field
 
 				switch {
 				case fd.IsList(), fd.IsMap():
-					// As per: https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/field_mask.proto#L85-L86
-					// Do not recurse into repeated fields. The repeated field goes on the end of the path and we stop.
-					fm.Paths = append(fm.Paths, child.path)
+					if repeatedChild != nil {
+						// This is implied by the rule that any repeated fields must be
+						// last in the paths.
+						// Ref: https://github.com/protocolbuffers/protobuf/blob/6b0ff74ecf63e26c7315f6745de36aff66deb59d/src/google/protobuf/field_mask.proto#L85-L86
+						return nil, fmt.Errorf("only one repeated value is allowed per field_mask")
+					}
+					repeatedChild = &child
+					// Don't add to paths until the end
 				case fd.Message() != nil:
 					child.msg = item.msg.Get(fd).Message()
 					fallthrough
@@ -101,15 +95,13 @@ func FieldMaskFromRequestBody(r io.Reader, msg proto.Message) (*field_mask.Field
 		}
 	}
 
-	// Sort for deterministic output in the presence
-	// of repeated fields.
-	sort.Strings(fm.Paths)
+	// Add any repeated fields last, as per
+	// https://github.com/protocolbuffers/protobuf/blob/6b0ff74ecf63e26c7315f6745de36aff66deb59d/src/google/protobuf/field_mask.proto#L85-L86
+	if repeatedChild != nil {
+		fm.Paths = append(fm.Paths, repeatedChild.path)
+	}
 
 	return fm, nil
-}
-
-func isProtobufAnyMessage(md protoreflect.MessageDescriptor) bool {
-	return md != nil && (md.FullName() == "google.protobuf.Any")
 }
 
 func isDynamicProtoMessage(md protoreflect.MessageDescriptor) bool {
