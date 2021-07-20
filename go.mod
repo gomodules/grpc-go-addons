@@ -3,18 +3,16 @@ module gomodules.xyz/grpc-go-addons
 go 1.12
 
 require (
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
-	github.com/golang/protobuf v1.4.3
-	github.com/grpc-ecosystem/grpc-gateway v1.14.5
+	github.com/golang/protobuf v1.5.2
+	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/pkg/errors v0.9.1
-	github.com/soheilhy/cmux v0.1.4
+	github.com/soheilhy/cmux v0.1.5
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 	github.com/xeipuuv/gojsonschema v1.2.0
-	golang.org/x/net v0.0.0-20191002035440-2ec189313ef0
+	golang.org/x/net v0.0.0-20201202161906-c7110b5ffcbb
 	gomodules.xyz/notify v0.1.1
-	gomodules.xyz/x v0.0.0-20201105065653-91c568df6331
-	google.golang.org/grpc v1.24.0
+	gomodules.xyz/x v0.0.5
+	google.golang.org/grpc v1.39.0
+	k8s.io/klog/v2 v2.8.0
 )
-
-replace github.com/golang/protobuf => github.com/golang/protobuf v1.3.2

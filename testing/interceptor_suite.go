@@ -4,17 +4,17 @@
 package grpc_testing
 
 import (
-	"net"
-	"time"
-
 	"flag"
+	"net"
 	"path"
 	"runtime"
+	"time"
+
+	pb_testproto "gomodules.xyz/grpc-go-addons/testing/testproto"
 
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"golang.org/x/net/context"
-	pb_testproto "gomodules.xyz/grpc-go-addons/testing/testproto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )

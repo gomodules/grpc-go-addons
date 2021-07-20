@@ -1,3 +1,19 @@
+/*
+Copyright AppsCode Inc. and Contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package server
 
 import (
@@ -9,12 +25,13 @@ import (
 	"strings"
 	"time"
 
-	"gomodules.xyz/x/log"
+	"gomodules.xyz/grpc-go-addons/cors"
+
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/soheilhy/cmux"
-	"gomodules.xyz/grpc-go-addons/cors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"k8s.io/klog/v2"
 )
 
 type Server struct {
@@ -43,12 +60,12 @@ func (s *Server) Run(stopCh <-chan struct{}) error {
 
 	// Then we used the muxed listeners.
 	go func() {
-		log.Infoln("[GRPCSERVER] Starting gRPC Server at addr", grpcl.Addr())
-		log.Fatalln("[GRPCSERVER] gRPC Server failed:", s.newGRPCServer(false).Serve(grpcl))
+		klog.Infoln("[GRPCSERVER] Starting gRPC Server at addr", grpcl.Addr())
+		klog.Fatalln("[GRPCSERVER] gRPC Server failed:", s.newGRPCServer(false).Serve(grpcl))
 	}()
 	go func() {
 		gwMux := s.NewGatewayMux(httpl, false)
-		log.Infoln("[PROXYSERVER] Sarting Proxy Server at port", httpl.Addr())
+		klog.Infoln("[PROXYSERVER] Sarting Proxy Server at port", httpl.Addr())
 		srv := &http.Server{
 			Addr:         httpl.Addr().String(),
 			ReadTimeout:  30 * time.Second,
@@ -57,7 +74,7 @@ func (s *Server) Run(stopCh <-chan struct{}) error {
 				gwMux.ServeHTTP(w, r)
 			}),
 		}
-		log.Fatalln("[PROXYSERVER] Proxy Server failed:", srv.Serve(httpl))
+		klog.Fatalln("[PROXYSERVER] Proxy Server failed:", srv.Serve(httpl))
 	}()
 
 	return m.Serve()
@@ -68,7 +85,7 @@ func (s *Server) newGRPCServer(useTLS bool) *grpc.Server {
 	if useTLS {
 		creds, err := credentials.NewServerTLSFromFile(s.CertFile, s.KeyFile)
 		if err != nil {
-			log.Fatalln(err)
+			klog.Fatalln(err)
 		}
 		s.grpcOptions = append(s.grpcOptions, grpc.Creds(creds))
 	}
@@ -101,13 +118,13 @@ func (s *Server) NewGatewayMux(l net.Listener, useTLS bool) *gwrt.ServeMux {
 func (s *Server) ServeHTTPS() {
 	l, err := net.Listen("tcp", s.SecureAddr)
 	if err != nil {
-		log.Fatal(err)
+		klog.Fatal(err)
 	}
 
 	// Load certificates.
 	certificate, err := tls.LoadX509KeyPair(s.CertFile, s.KeyFile)
 	if err != nil {
-		log.Fatalln(err)
+		klog.Fatalln(err)
 	}
 	/*
 		Ref:
@@ -134,7 +151,7 @@ func (s *Server) ServeHTTPS() {
 	if s.CACertFile != "" {
 		caCert, err := ioutil.ReadFile(s.CACertFile)
 		if err != nil {
-			log.Fatal(err)
+			klog.Fatal(err)
 		}
 		caCertPool := x509.NewCertPool()
 		caCertPool.AppendCertsFromPEM(caCert)
@@ -159,6 +176,6 @@ func (s *Server) ServeHTTPS() {
 		TLSConfig: tlsConfig,
 	}
 
-	log.Infoln("[HTTP2] Starting HTTP2 Server at port", l.Addr().String())
-	log.Fatalln("[HTTP2] HTTP2 Server failed:", srv.Serve(tls.NewListener(l, tlsConfig)))
+	klog.Infoln("[HTTP2] Starting HTTP2 Server at port", l.Addr().String())
+	klog.Fatalln("[HTTP2] HTTP2 Server failed:", srv.Serve(tls.NewListener(l, tlsConfig)))
 }

@@ -1,3 +1,19 @@
+/*
+Copyright AppsCode Inc. and Contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package cors
 
 import (
@@ -5,9 +21,9 @@ import (
 	"net/url"
 	"strings"
 
-	_env "gomodules.xyz/x/env"
-	"gomodules.xyz/x/log"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	_env "gomodules.xyz/x/env"
+	"k8s.io/klog/v2"
 )
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
@@ -40,7 +56,7 @@ func (r Handler) ServeHTTP(w http.ResponseWriter, req *http.Request, _ map[strin
 
 		u, err := url.Parse(origin)
 		if err != nil {
-			log.Errorln("Failed to parse CORS origin header", err)
+			klog.Errorln("Failed to parse CORS origin header", err)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
@@ -48,7 +64,7 @@ func (r Handler) ServeHTTP(w http.ResponseWriter, req *http.Request, _ map[strin
 			(r.options.allowSubdomain && strings.HasSuffix(u.Host, "."+r.options.allowHost))
 		if !ok {
 
-			log.Errorf("CORS request from prohibited domain %v", origin)
+			klog.Errorf("CORS request from prohibited domain %v", origin)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
