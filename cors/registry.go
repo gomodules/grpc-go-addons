@@ -16,7 +16,7 @@ limitations under the License.
 
 package cors
 
-import "github.com/grpc-ecosystem/grpc-gateway/runtime"
+import "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
 // https://fetch.spec.whatwg.org/#cors-protocol-and-credentials

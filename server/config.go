@@ -20,7 +20,7 @@ import (
 	"gomodules.xyz/grpc-go-addons/cors"
 	"gomodules.xyz/grpc-go-addons/endpoints"
 
-	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
+	gwrt "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 )
 

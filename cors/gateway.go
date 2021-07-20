@@ -21,7 +21,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_env "gomodules.xyz/x/env"
 	"k8s.io/klog/v2"
 )

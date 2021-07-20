@@ -27,7 +27,7 @@ import (
 
 	"gomodules.xyz/grpc-go-addons/cors"
 
-	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
+	gwrt "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/soheilhy/cmux"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
