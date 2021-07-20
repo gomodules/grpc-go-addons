@@ -8,12 +8,12 @@ Package `grpc_testing` provides helper functions for testing validators in this 
 package grpc_testing
 
 import (
+	"context"
 	"io"
 	"testing"
 
 	pb_testproto "gomodules.xyz/grpc-go-addons/testing/testproto"
 
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 )

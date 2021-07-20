@@ -17,12 +17,12 @@ limitations under the License.
 package endpoints
 
 import (
+	"context"
 	"reflect"
 	gort "runtime"
 	"strings"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"k8s.io/klog/v2"
 )

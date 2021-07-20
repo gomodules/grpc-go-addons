@@ -17,7 +17,8 @@ limitations under the License.
 package notifier
 
 import (
-	"golang.org/x/net/context"
+	"context"
+
 	utilerrors "gomodules.xyz/notify/errors"
 	"google.golang.org/grpc"
 )

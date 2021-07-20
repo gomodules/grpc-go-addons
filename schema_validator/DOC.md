@@ -46,7 +46,7 @@ other parameters of customization.
 
 ## <a name="pkg-imports">Imported Packages</a>
 
-- [golang.org/x/net/context](https://godoc.org/golang.org/x/net/context)
+- [context](https://godoc.org/context)
 - [google.golang.org/grpc](https://godoc.org/google.golang.org/grpc)
 - [google.golang.org/grpc/codes](https://godoc.org/google.golang.org/grpc/codes)
 

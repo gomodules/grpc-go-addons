@@ -17,11 +17,11 @@ limitations under the License.
 package cors
 
 import (
+	"context"
 	"net/url"
 	"strings"
 
 	"github.com/pkg/errors"
-	"golang.org/x/net/context"
 	_env "gomodules.xyz/x/env"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
