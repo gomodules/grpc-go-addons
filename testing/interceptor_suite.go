@@ -19,9 +19,7 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
-var (
-	flagTls = flag.Bool("use_tls", true, "whether all gRPC middleware tests should use tls")
-)
+var flagTls = flag.Bool("use_tls", true, "whether all gRPC middleware tests should use tls")
 
 func getTestingCertsPath() string {
 	_, callerPath, _, _ := runtime.Caller(0)
