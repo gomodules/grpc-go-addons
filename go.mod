@@ -14,4 +14,5 @@ require (
 	gomodules.xyz/x v0.0.5
 	google.golang.org/grpc v1.39.0
 	k8s.io/klog/v2 v2.8.0
+	k8s.io/kube-openapi v0.0.0-20220316025549-ddc66922ab18
 )
