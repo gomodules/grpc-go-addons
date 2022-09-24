@@ -5,9 +5,11 @@
 Package mwitkow_testproto is a generated protocol buffer package.
 
 It is generated from these files:
+
 	test.proto
 
 It has these top-level messages:
+
 	Empty
 	PingRequest
 	PingResponse

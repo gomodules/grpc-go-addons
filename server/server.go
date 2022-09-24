@@ -19,9 +19,9 @@ package server
 import (
 	"crypto/tls"
 	"crypto/x509"
-	"io/ioutil"
 	"net"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -149,7 +149,7 @@ func (s *Server) ServeHTTPS() {
 		NextProtos: []string{"h2", "http/1.1"},
 	}
 	if s.CACertFile != "" {
-		caCert, err := ioutil.ReadFile(s.CACertFile)
+		caCert, err := os.ReadFile(s.CACertFile)
 		if err != nil {
 			klog.Fatal(err)
 		}
