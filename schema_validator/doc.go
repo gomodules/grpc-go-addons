@@ -4,7 +4,7 @@
 /*
 `grpc_validator` a generic request contents schema_validator server-side middleware for gRPC.
 
-Request Validator Middleware
+# Request Validator Middleware
 
 Validating input is important, and hard. It also causes a lot of boiler plate. This middleware
 checks for the existance of a `Validate` method on each of the messages of a gRPC request. This
@@ -15,7 +15,6 @@ description of the validation failure.
 While it is generic, it was indented to be used with https://github.com/mwitkow/go-proto-validators,
 a Go protocol buffers codegen plugin that creates the `Validate` methods (including nested messages)
 based on declarative options in the `.proto` files themselves. For example:
-
 
 	syntax = "proto3";
 	package schema_validator.examples;
