@@ -70,7 +70,8 @@ func (s *InterceptorTestSuite) NewClient(dialOpts ...grpc.DialOption) pb_testpro
 	newDialOpts := append(dialOpts, grpc.WithBlock(), grpc.WithTimeout(2*time.Second))
 	if *flagTls {
 		creds, err := credentials.NewClientTLSFromFile(
-			path.Join(getTestingCertsPath(), "localhost.crt"), "localhost")
+			path.Join(getTestingCertsPath(), "localhost.crt"), "localhost",
+		)
 		require.NoError(s.T(), err, "failed reading client credentials for localhost.crt")
 		newDialOpts = append(newDialOpts, grpc.WithTransportCredentials(creds))
 	} else {
